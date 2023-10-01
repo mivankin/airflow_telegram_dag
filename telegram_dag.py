@@ -18,20 +18,19 @@
 """
 Example use of Telegram operator.
 """
-from __future__ import annotations
-
-import os
-from datetime import datetime
-
-from airflow import DAG
-from airflow.providers.telegram.operators.telegram import TelegramOperator
 import logging
 import requests
 import json
 import os
 import subprocess
+import os
+from datetime import datetime
+from __future__ import annotations
+from airflow import DAG
+from airflow.providers.telegram.operators.telegram import TelegramOperator
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
+
 
 ENV_ID = os.environ.get("SYSTEM_TESTS_ENV_ID")
 
@@ -40,6 +39,7 @@ DAG_ID = "example_telegram"
 CONN_ID = "6426823081:AAH7jOLdVAPSCZZ0bzMN3Py7K19zwJAZWtw" #telegram bot connection id
 
 SAVE_PATH = f"/opt/airflow/dags/files/"
+
 def get_updates_telegram(**kwargs):
     """
     Get updates from telegram bot through request with telegram
@@ -107,7 +107,6 @@ def get_files_from_json(**kwargs):
     files = []
     with open(f'{SAVE_PATH}data.json', 'r') as f:
         data = json.load(f)
-
 
     for line in data:
         if 'photo' in line['message'].keys():
